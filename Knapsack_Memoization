@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+int static t[4][51];
+
+// void memset(int t[4][51],int 0, sizeof t);Memset show error in this condition why i dont know?
+
+
+int knapsack(int val_arr[],int wt_arr[],int W, int n){
+    
+    memset(t, -1, sizeof(t));
+    int max3=0;
+    if(W == 0 || n == 0)
+    return 0;
+    
+    if(t[n][W]!=-1)
+     return t[n][W];
+    
+    if(W >= wt_arr[n-1]){
+   // return max( (val_arr[n-1]+knapsack(val_arr,wt_arr,W-wt_arr[n-1],n-1)),
+    int max1= val_arr[n-1]+knapsack(val_arr,wt_arr,W-wt_arr[n-1],n-1);
+    int max2= knapsack(val_arr,wt_arr,W,n-1);
+    return(max1>max2) ? max1 : max2;
+    }
+    // return max(max1,max2);
+    // if(max1>=max2)
+    //     max3=max1;
+    // else
+    //     max3=max2;
+        
+    //     return t[n][W]=max3;
+    //  }
+    
+    
+    
+    else if(wt_arr[n-1]>W)
+    return(val_arr,wt_arr,W,n-1);
+    
+}
+int main(){
+    
+    int val_arr[]={60,100,120};
+    int wt_arr[]={10,20,30};
+    int N = (sizeof(val_arr)/sizeof(val_arr[0]));
+    int W = 50;
+    int maximum_profit = knapsack(val_arr,wt_arr,W,N);
+    printf("The maximum profit of the Knapsake problem is:%d ",maximum_profit);
+}
