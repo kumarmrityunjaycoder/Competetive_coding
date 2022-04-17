@@ -1,0 +1,34 @@
+#include<iostream>
+using namespace std;
+int static t[5][8];
+bool subsetsum(int arr[],int w,int n){
+    for(int i=0;i<=n;i++){
+        for(int j=0;j<=w;j++){
+            if(i==0)
+            t[i][j]=0;
+            if(j==0)
+            t[i][j]=1;
+            
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=w;j++){
+            if(j>=arr[i-1])
+            t[i][j]=t[i][j-arr[i-1]]||t[i-1][j];
+            
+            else if(j<arr[i-1])
+            t[i][j]=t[i-1][j];
+        }
+    }
+    return t[n][w];
+}
+int main(){
+    int arr[]={2,6,4,9};
+    int t_sum=7;
+    int n= sizeof(arr)/sizeof(arr[0]);
+    if(subsetsum(arr,t_sum,n))
+    cout<<"The subset Sum is Possible"<<endl;
+    else
+    cout<<"The subset sum is not Possible"<<endl;
+    
+}
