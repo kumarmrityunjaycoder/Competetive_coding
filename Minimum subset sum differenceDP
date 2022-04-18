@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+int MinDifference=1000;
+
+bool checkValidityForRangeDigit(int arr[],int g,int n){
+    bool t[n+1][g+1];
+    for(int i=0;i<n+1;i++){
+        for(int j=0;j<g+1; j++){
+            if(i==0)
+            t[i][j]=false;
+            if(j==0)
+            t[i][j]=true;
+        }
+    }
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<g+1;j++){
+            if(j>=arr[i-1])
+            t[i][j]= t[i-1][j-arr[i-1]] || t[i-1][j];
+            else if(j<arr[i-1])
+            t[i][j]=t[i-1][j];
+        }
+    }
+    return t[n][g];
+}
+int MSubsetSumDiff(int arr[],int range,int n){
+    int s=range/2;
+    int t[n+1][s+1];
+    int n1=n;
+   // int check_point=sum/2;
+    for(int i=0;i<=s;i++){
+      if(checkValidityForRangeDigit(arr,i,n1)==true){
+         int getDifference=(range - 2*i);
+         if(getDifference<MinDifference){
+             MinDifference=getDifference;
+         }
+      }
+    }
+    return MinDifference;
+}
+
+int main(){
+    int sum=0;
+    int arr[]={1, 6, 11, 5};
+   
+    int n=sizeof(arr)/sizeof(arr[0]);
+     for(int i=0;i<n;i++){
+        sum =sum+arr[i];
+        }
+  //  cout<<"Range of the array:"<<sum<<endl;
+    cout<<"Minimum subset sum difference: "<<MSubsetSumDiff(arr,sum,n)<<endl;
+    
+}
+
