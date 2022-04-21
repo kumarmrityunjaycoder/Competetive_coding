@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+
+int checksubsetsum(int arr[],int set1,int n){
+    int  t[n+1][set1+1];
+    for(int i=0;i<n+1;i++){
+        for(int j=0;j<set1+1;j++){
+            if(i==0)
+            t[i][j]=0;
+            if(j==0)
+            t[i][j]=1;
+        }
+    }
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<set1+1;j++){
+            if(j>=arr[i-1]){
+                t[i][j]=t[i-1][j-arr[i-1]]+t[i-1][j];
+            }
+            else if(j<arr[i-1]){
+                t[i][j]=t[i-1][j];
+            }
+        }
+    }
+    return t[n][set1];
+}
+
+int CountSetDifference(int arr[],int diff,int n){
+    int sum=0;
+   for(int i=0;i<n;i++){
+       sum=sum+arr[i];
+   } 
+   
+   int set=(diff+sum);
+   if(set%2==0){
+    int set2=set/2;
+    return checksubsetsum(arr,set2,n);
+   }
+   else{
+       return 0;
+   }
+   
+}
+int main(){
+    int arr[]={1,1,2,3};
+  //  int arr[]={0,0,1};
+    int diff=1;
+    int n=sizeof(arr)/sizeof(arr[0]);
+    cout<<"Number of sets whose difference equal to given diff:"<<CountSetDifference(arr,diff,n)<<endl;
+}
+
