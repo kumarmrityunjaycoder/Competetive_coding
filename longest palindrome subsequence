@@ -30,7 +30,7 @@ int main(){
     cin>>str1;
     int n1=str1.length();
     int i=n1-1;
-    //str2=reverse(str1.begin(),str1.end());
+    //str2=reverse(str1.begin(),str1.end());"It also change the main string str1 so we can not use it as str2.
     while(i>=0){
         str2.push_back(str1[i]);
         i--;
