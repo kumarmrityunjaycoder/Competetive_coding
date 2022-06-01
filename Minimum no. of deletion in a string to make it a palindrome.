@@ -1,0 +1,35 @@
+
+#include<iostream>
+using namespace std;
+int LPS(string str1,string str2,int n1,int n2){
+    int t[n1+1][n2+1];
+    for(int i=0;i<n1+1;i++){
+        for(int j=0;j<n2+1;j++){
+            if(i==0 || j ==0)
+            t[i][j]=0;
+        }
+    }
+    for(int i=1;i<n1+1;i++){
+        for(int j=1;j<n2+1;j++){
+            if(str1[i-1]==str2[j-1])
+            t[i][j]=1+LPS(str1,str2,i-1,j-1);
+            else
+            t[i][j]=max(LPS(str1,str2,i-1,j),LPS(str1,str2,i,j-1));
+        }
+    }
+    return t[n1][n2];
+}
+int main(){
+    string str1;
+    string str2="";
+    cout<<"Enter string :"<<endl;
+    cin>>str1;
+    int n1=str1.length()-1;
+    for(int i=n1;i>=0;i--){
+        str2.push_back(str1[i]);
+    }
+    cout<<str2<<endl;
+    int lps=LPS(str1,str2,n1,n1);
+    cout<<"Minimum no. of deletion for making it palindrome:"<<(n1-lps)<<endl;
+    
+}
